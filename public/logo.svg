@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none">
+  <rect width="100" height="100" rx="24" fill="#6B4226"/>
+  <!-- Decorative Ring -->
+  <circle cx="50" cy="50" r="40" stroke="#FBE3D9" stroke-width="2" stroke-dasharray="3 3"/>
+  <!-- Cupcake / Cake Icon -->
+  <path d="M30 56C30 50 36 47 50 47C64 47 70 50 70 56L66 74C65.5 76 63.5 77.5 61.5 77.5H38.5C36.5 77.5 34.5 76 34 74L30 56Z" fill="#FBE3D9"/>
+  <path d="M30 56C35 59 40 54 45 57C50 60 55 54 60 57C65 60 68 56 70 56" stroke="#6B4226" stroke-width="2.5" stroke-linecap="round"/>
+  <!-- Whipped cream swirls -->
+  <path d="M33 48C30 44 32 37 38 35C40 31 46 29 51 32C55 28 62 29 65 34C70 36 71 43 67 48C63 46 37 46 33 48Z" fill="#FFF8F0"/>
+  <!-- Cherry / berry on top -->
+  <circle cx="50" cy="27" r="5" fill="#E07856"/>
+  <path d="M51 22C54 18 58 19 60 21" stroke="#FFF8F0" stroke-width="2" stroke-linecap="round"/>
+</svg>
