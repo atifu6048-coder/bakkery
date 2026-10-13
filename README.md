@@ -3,7 +3,7 @@
 > **"Fresh Cakes, Baked with Love"**  
 > Artisanal homemade cakes, cupcakes, brownies, and cookies baked to order in Mardan, Pakistan.
 >
-> 🌐 **Live Website**: [https://temporary-racing-apogee-ig58pvx.vercel.app](https://temporary-racing-apogee-ig58pvx.vercel.app)  
+> 🌐 **Live Website**: [https://racing-apogee-ig58pvx.vercel.app](https://racing-apogee-ig58pvx.vercel.app)  
 > 📦 **GitHub Repository**: [https://github.com/atifu6048-coder/bakkery](https://github.com/atifu6048-coder/bakkery)
 
 ---
