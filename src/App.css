@@ -777,6 +777,12 @@
   font-size: 24px;
 }
 
+.form-alert-error {
+  background-color: #FDF2F2;
+  border: 1px solid #F98080;
+  color: #9B1C1C;
+}
+
 .map-teaser-card {
   background-color: var(--color-cream-surface);
   border-radius: var(--radius-lg);

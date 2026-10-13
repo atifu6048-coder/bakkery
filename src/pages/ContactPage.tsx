@@ -10,21 +10,66 @@ import {
 
 export const ContactPage: React.FC = () => {
   const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
   const [message, setMessage] = useState('');
-  const [demoSubmitted, setDemoSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [status, setStatus] = useState<'idle' | 'success' | 'error'>('idle');
+  const [statusMessage, setStatusMessage] = useState('');
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setDemoSubmitted(true);
-    // Visual feedback only as requested in PRD
+    setIsSubmitting(true);
+    setStatus('idle');
+    setStatusMessage('');
+
+    try {
+      const formData = new FormData();
+      formData.append('access_key', '0dfcd20f-eedd-4366-ba87-f833e751a935');
+      formData.append('name', name);
+      formData.append('email', email);
+      formData.append('phone', phone);
+      formData.append('message', message);
+      formData.append('from_name', 'Sweet Crust Bakery');
+      formData.append('subject', `New Inquiry from ${name} - Sweet Crust Bakery`);
+
+      const response = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        body: formData,
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        setStatus('success');
+        setStatusMessage(
+          'Thank you! Your message has been sent successfully. We reply fast — usually in less than one hour.'
+        );
+        setName('');
+        setEmail('');
+        setPhone('');
+        setMessage('');
+      } else {
+        setStatus('error');
+        setStatusMessage(
+          data.message || 'Something went wrong while sending your message. Please message us on WhatsApp.'
+        );
+      }
+    } catch {
+      setStatus('error');
+      setStatusMessage('Network error. Please try again or chat with us directly on WhatsApp.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleReset = () => {
     setName('');
+    setEmail('');
     setPhone('');
     setMessage('');
-    setDemoSubmitted(false);
+    setStatus('idle');
+    setStatusMessage('');
   };
 
   const mapBgImage =
@@ -165,7 +210,7 @@ export const ContactPage: React.FC = () => {
               </div>
             </div>
 
-            {/* Right Column: Demo Contact Form */}
+            {/* Right Column: Web3Forms Connected Contact Form */}
             <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
               <div className="contact-form-card">
                 <div style={{ marginBottom: '1.5rem' }}>
@@ -173,37 +218,69 @@ export const ContactPage: React.FC = () => {
                     Send a Note
                   </h2>
                   <p style={{ fontSize: '0.925rem' }}>
-                    Custom party cakes, bulk treats, or neighborhood questions — drop us a line below.
+                    Custom party cakes, bulk treats, or questions — drop us a line below and we'll deliver it straight to our inbox.
                   </p>
                 </div>
 
-                {demoSubmitted ? (
+                {/* Feedback Alerts */}
+                {status === 'success' && (
                   <div className="form-alert" role="status">
                     <span className="material-symbols-outlined">check_circle</span>
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
-                      <strong>Thank you! Your note has been received.</strong>
-                      <p style={{ fontSize: '0.85rem' }}>
-                        This contact form is a visual demo. For orders and immediate replies, please message our WhatsApp directly!
-                      </p>
+                      <strong>Message Delivered!</strong>
+                      <p style={{ fontSize: '0.85rem' }}>{statusMessage}</p>
                       <button
                         type="button"
                         onClick={handleReset}
-                        style={{ marginTop: '0.5rem', alignSelf: 'flex-start', background: 'none', border: 'none', color: 'var(--color-bakery-brown)', textDecoration: 'underline', cursor: 'pointer', fontWeight: 600, fontSize: '0.85rem' }}
+                        style={{
+                          marginTop: '0.5rem',
+                          alignSelf: 'flex-start',
+                          background: 'none',
+                          border: 'none',
+                          color: 'var(--color-bakery-brown)',
+                          textDecoration: 'underline',
+                          cursor: 'pointer',
+                          fontWeight: 600,
+                          fontSize: '0.85rem',
+                        }}
                       >
                         Send another note
                       </button>
                     </div>
                   </div>
-                ) : null}
+                )}
 
-                <form onSubmit={handleSubmit} noValidate={false}>
-                  {/* Your Name */}
+                {status === 'error' && (
+                  <div className="form-alert form-alert-error" role="alert">
+                    <span className="material-symbols-outlined" style={{ color: '#E02424' }}>error</span>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
+                      <strong>Submission Notice</strong>
+                      <p style={{ fontSize: '0.85rem' }}>{statusMessage}</p>
+                    </div>
+                  </div>
+                )}
+
+                <form
+                  action="https://api.web3forms.com/submit"
+                  method="POST"
+                  onSubmit={handleSubmit}
+                  noValidate={false}
+                >
+                  {/* Web3Forms Access Key */}
+                  <input
+                    type="hidden"
+                    name="access_key"
+                    value="0dfcd20f-eedd-4366-ba87-f833e751a935"
+                  />
+
+                  {/* Name Field */}
                   <div className="form-group">
                     <label htmlFor="user-name" className="form-label">
-                      Your Name
+                      Your Name <span style={{ color: 'var(--color-warm-peach)' }}>*</span>
                     </label>
                     <input
                       id="user-name"
+                      name="name"
                       type="text"
                       className="form-input"
                       placeholder="e.g. Fatima Ali"
@@ -213,29 +290,47 @@ export const ContactPage: React.FC = () => {
                     />
                   </div>
 
-                  {/* Your Phone */}
+                  {/* Email Field */}
+                  <div className="form-group">
+                    <label htmlFor="user-email" className="form-label">
+                      Your Email <span style={{ color: 'var(--color-warm-peach)' }}>*</span>
+                    </label>
+                    <input
+                      id="user-email"
+                      name="email"
+                      type="email"
+                      className="form-input"
+                      placeholder="e.g. fatima@example.com"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      required
+                    />
+                  </div>
+
+                  {/* Phone Field */}
                   <div className="form-group">
                     <label htmlFor="user-phone" className="form-label">
-                      Your Phone
+                      Your Phone (optional)
                     </label>
                     <input
                       id="user-phone"
+                      name="phone"
                       type="tel"
                       className="form-input"
                       placeholder="0300 0000000"
                       value={phone}
                       onChange={(e) => setPhone(e.target.value)}
-                      required
                     />
                   </div>
 
-                  {/* Your Message */}
+                  {/* Message Field */}
                   <div className="form-group">
                     <label htmlFor="user-message" className="form-label">
-                      Your Message
+                      Your Message <span style={{ color: 'var(--color-warm-peach)' }}>*</span>
                     </label>
                     <textarea
                       id="user-message"
+                      name="message"
                       className="form-textarea"
                       placeholder="Tell us about your celebration, preferred cake flavor, or pickup time..."
                       rows={5}
@@ -245,19 +340,23 @@ export const ContactPage: React.FC = () => {
                     ></textarea>
                   </div>
 
-                  {/* Send Message Button (Brown button) */}
+                  {/* Submit Button */}
                   <div style={{ paddingTop: '0.5rem' }}>
                     <button
                       type="submit"
                       className="btn-primary btn-lg"
                       id="contact-send-btn"
+                      disabled={isSubmitting}
+                      style={{ opacity: isSubmitting ? 0.7 : 1, cursor: isSubmitting ? 'wait' : 'pointer' }}
                     >
-                      <span>Send Message</span>
-                      <span className="material-symbols-outlined" style={{ fontSize: '18px' }}>send</span>
+                      <span>{isSubmitting ? 'Sending Message...' : 'Submit Form'}</span>
+                      <span className="material-symbols-outlined" style={{ fontSize: '18px' }}>
+                        {isSubmitting ? 'hourglass_top' : 'send'}
+                      </span>
                     </button>
                   </div>
 
-                  {/* Small note under form as requested in PRD */}
+                  {/* WhatsApp Quick Note */}
                   <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem', marginTop: '1.25rem', color: 'var(--color-cocoa-muted)', fontSize: '0.875rem' }}>
                     <span className="material-symbols-outlined" style={{ fontSize: '18px', color: 'var(--color-warm-peach)' }}>
                       bolt
