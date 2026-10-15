@@ -229,29 +229,32 @@ export const AboutPage: React.FC = () => {
           </div>
 
           {/* Personal WhatsApp CTA */}
-          <div className="card-soft-pink" style={{ marginTop: '3.5rem', display: 'flex', flexDirection: 'column', gap: '1.5rem', padding: '2.5rem' }}>
+          <div className="card-soft-pink about-chat-cta">
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '1.5rem' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '1.25rem', maxWidth: '680px' }}>
-                <div style={{ width: '60px', height: '60px', borderRadius: '50%', backgroundColor: 'var(--color-white)', color: 'var(--color-warm-peach)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                  <span className="material-symbols-outlined" style={{ fontSize: '32px' }}>chat_bubble</span>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', maxWidth: '680px', flexWrap: 'wrap' }}>
+                <div style={{ width: '52px', height: '52px', borderRadius: '50%', backgroundColor: 'var(--color-white)', color: 'var(--color-warm-peach)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                  <span className="material-symbols-outlined" style={{ fontSize: '28px' }}>chat_bubble</span>
                 </div>
-                <div>
-                  <h3 style={{ fontSize: '1.35rem', marginBottom: '0.25rem' }}>Have a special celebration in mind?</h3>
-                  <p style={{ fontSize: '0.95rem' }}>
+                <div style={{ flex: 1, minWidth: '220px' }}>
+                  <h3 style={{ fontSize: '1.25rem', marginBottom: '0.25rem' }}>Have a special celebration in mind?</h3>
+                  <p style={{ fontSize: '0.925rem' }}>
                     Message me directly on WhatsApp to chat about designs, flavors, or pre-order timing for your upcoming event in Mardan.
                   </p>
                 </div>
               </div>
 
-              <a
-                href={`${BAKERY_WHATSAPP_BASE}?text=${encodeURIComponent("Hi Sweet Crust Bakery, I would love to discuss a custom cake!")}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn-primary"
-              >
-                <span className="material-symbols-outlined" style={{ fontSize: '18px' }}>chat</span>
-                <span>Chat with the Baker</span>
-              </a>
+              <div style={{ width: '100%', maxWidth: '300px' }}>
+                <a
+                  href={`${BAKERY_WHATSAPP_BASE}?text=${encodeURIComponent("Hi Sweet Crust Bakery, I would love to discuss a custom cake!")}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn-primary"
+                  style={{ width: '100%', justifyContent: 'center' }}
+                >
+                  <span className="material-symbols-outlined" style={{ fontSize: '18px' }}>chat</span>
+                  <span>Chat with the Baker</span>
+                </a>
+              </div>
             </div>
           </div>
 

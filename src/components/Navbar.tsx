@@ -37,7 +37,7 @@ export const Navbar: React.FC = () => {
         {/* Brand */}
         <Link to="/" className="brand-logo-link" aria-label="Sweet Crust Bakery Home">
           <img src="/logo.svg" alt="Sweet Crust Bakery Logo" className="brand-icon" />
-          <span>Sweet Crust Bakery</span>
+          <span className="brand-text">Sweet Crust Bakery</span>
         </Link>
 
         {/* Desktop Nav */}
@@ -62,11 +62,11 @@ export const Navbar: React.FC = () => {
             href={`${BAKERY_WHATSAPP_BASE}?text=${encodeURIComponent("Hi Sweet Crust Bakery, I would like to place an order!")}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="btn-primary btn-sm"
+            className="btn-primary btn-sm header-cta-btn"
             aria-label="Order on WhatsApp (opens in new tab)"
           >
-            <span className="material-symbols-outlined" style={{ fontSize: '18px' }}>chat</span>
-            <span>Order on WhatsApp</span>
+            <span className="material-symbols-outlined header-cta-icon" style={{ fontSize: '18px' }}>chat</span>
+            <span className="header-cta-label">Order</span>
           </a>
 
           {/* Mobile Menu Toggle Button */}

@@ -112,18 +112,18 @@ export const MenuPage: React.FC = () => {
           </div>
 
           {/* Freshness Guarantee Notice */}
-          <div className="card-soft-pink" style={{ display: 'flex', flexDirection: 'column', gap: '1rem', padding: '2rem' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', flexWrap: 'wrap' }}>
-              <div style={{ width: '48px', height: '48px', borderRadius: '50%', backgroundColor: 'var(--color-white)', color: 'var(--color-warm-peach)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+          <div className="freshness-notice-card card-soft-pink">
+            <div className="freshness-notice-inner">
+              <div className="freshness-notice-icon-box">
                 <span className="material-symbols-outlined" style={{ fontSize: '28px' }}>schedule</span>
               </div>
-              <div style={{ flex: 1, minWidth: '260px' }}>
+              <div className="freshness-notice-text">
                 <h3 style={{ fontSize: '1.2rem', marginBottom: '0.25rem' }}>Freshness Guarantee &amp; Advance Notice</h3>
                 <p style={{ fontSize: '0.95rem' }}>
                   All orders are baked fresh upon request. Please place custom cake orders at least 24 hours in advance on WhatsApp.
                 </p>
               </div>
-              <div>
+              <div className="freshness-notice-action">
                 <a
                   href={`${BAKERY_WHATSAPP_BASE}?text=${encodeURIComponent("Hi Sweet Crust Bakery, I would like to place a pre-order.")}`}
                   target="_blank"
